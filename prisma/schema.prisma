@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model TestCase {
+  id             Int     @id @default(autoincrement())
+  n              Int
+  m              Int
+  input_grid     Int[]
+  output_grid    Int[]
+  expected_value Int[]
+  is_successful  Boolean
+}
