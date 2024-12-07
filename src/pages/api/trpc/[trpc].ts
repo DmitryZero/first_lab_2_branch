@@ -2,7 +2,7 @@
  * This file contains tRPC's HTTP response handler
  */
 import * as trpcNext from '@trpc/server/adapters/next';
-import { createContext } from '~/server/context';
+import { createTRPCContext } from '~/server/context';
 import { appRouter } from '~/server/routers/_app';
 
 export default trpcNext.createNextApiHandler({
@@ -10,7 +10,7 @@ export default trpcNext.createNextApiHandler({
   /**
    * @see https://trpc.io/docs/v11/context
    */
-  createContext,
+  createContext: createTRPCContext,
   /**
    * @see https://trpc.io/docs/v11/error-handling
    */
@@ -19,7 +19,7 @@ export default trpcNext.createNextApiHandler({
       // send to bug reporting
       console.error('Something went wrong', error);
     }
-  },
+  }  
   /**
    * @see https://trpc.io/docs/v11/caching#api-response-caching
    */
