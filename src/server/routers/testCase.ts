@@ -1,4 +1,4 @@
-import { router, userProcedure } from '../trpc';
+import { adminProcedure, router, userProcedure } from '../trpc';
 import { z } from 'zod';
 import { prisma } from '~/server/prisma';
 import { get2dimensional } from '~/utils/get2dimmensional';
@@ -106,7 +106,7 @@ export const testCaseRouter = router({
 
       return new_test_case;
     }),
-  deleteTestCase: userProcedure //Удалить тест-кейс по id
+  deleteTestCase: adminProcedure //Удалить тест-кейс по id
     .input(
       z.object({
         id: z.number(),

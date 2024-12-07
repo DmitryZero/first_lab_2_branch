@@ -39,7 +39,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
           error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
-  }  
+  },
 });
 
 /**
@@ -57,11 +57,11 @@ export const publicProcedure = t.procedure;
 export const userProcedure = publicProcedure.use(async (opts) => {
   const { req, res, prisma } = opts.ctx;
 
-  let token = await getCookie('token', { req: req, res: res });
+  const token = await getCookie('token', { req: req, res: res });
   if (!token)
     throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Cookie не указан' });
 
-  const user = await prisma.user.findFirst({
+  let user = await prisma.user.findFirst({
     where: {
       token: token,
     },
@@ -76,12 +76,10 @@ export const userProcedure = publicProcedure.use(async (opts) => {
   if (!user.time_token_expiration)
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Время жизни токена не заполнено',
+      message: 'Время жизни токена в бд не заполнено',
     });
 
   const current_date = new Date();
-  console.log('current_date', current_date);
-  console.log('user.time_token_expiration', user.time_token_expiration);
   if (current_date > user.time_token_expiration) {
     const new_token = uuidv4();
     const expire_date = new Date(
@@ -97,13 +95,11 @@ export const userProcedure = publicProcedure.use(async (opts) => {
         time_token_expiration: expire_date,
       },
     });
-
-    token = new_token;
+    user = null;
   }
 
   return opts.next({
     ctx: {
-      token: token,
       req,
       res,
       prisma,
@@ -115,7 +111,7 @@ export const userProcedure = publicProcedure.use(async (opts) => {
 export const adminProcedure = userProcedure.use(async (opts) => {
   const { req, res, user, prisma } = opts.ctx;
 
-  if (!user.is_admin) {
+  if (!user?.is_admin) {
     throw new TRPCError({
       code: 'FORBIDDEN',
       message: 'Пользователь не является администратором',

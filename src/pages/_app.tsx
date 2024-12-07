@@ -9,7 +9,6 @@ import { User } from '@prisma/client';
 import UserContext from '~/Context/UserContext';
 import Spinner from '~/components/Spinner';
 import { useRouter } from 'next/router';
-import { setCookie } from 'cookies-next';
 
 export type NextPageWithLayout<
   TProps = Record<string, unknown>,
@@ -29,7 +28,7 @@ const MyApp = (({ Component, pageProps }: AppPropsWithLayout) => {
   const [redirected, setRedirected] = useState(false); // Флаг для контроля перенаправления
 
   const { data: user_data, isLoading } =
-    trpc.userRouter.getClientByCookie.useQuery(undefined, {
+    trpc.userRouter.getUserByCookie.useQuery(undefined, {
       enabled: !userState,
       retry: false, // Отключаем повторные попытки
     });
@@ -42,7 +41,7 @@ const MyApp = (({ Component, pageProps }: AppPropsWithLayout) => {
         .push('/authorizationPage')
         .catch((e) => console.error('Router push failed:', e));
     } else if (user_data) {
-      setUser(user_data.user);
+      setUser(user_data);
 
       if (router.pathname === '/authorizationPage') {
         router.push('/').catch((e) => console.error('Router push failed:', e));
