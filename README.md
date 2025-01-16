@@ -38,3 +38,6 @@ npm run dev
 *Данная команда запускает скрипт "dev" из файла "package.json"*
 
 5. После этого сервер запустится по адресу http://localhost:3000
+
+Прикладываю отчёт по лабораторной работе [ЛР2- Никитин Д.А.docx](https://github.com/user-attachments/files/18442530/2-.docx)
+
