@@ -2,10 +2,10 @@
 ([Файл с проблемой.pdf](https://github.com/user-attachments/files/18441370/problem.pdf))
 
 Для запуска проекта нужно установить следующее:
-1) [Git]([https://git-scm.com]) - скачивать не обязательно. Нужен только, чтобы клонировать проект. Можно скачать исходники через интерфейс гитхаба
-2) [NodeJS]([https://nodejs.org/en])
-3) [pnpm]([https://pnpm.io])
-4) [PostgreSQL]([https://www.postgresql.org/])
+1) [Git](https://git-scm.com) - скачивать не обязательно. Нужен только, чтобы клонировать проект. Можно скачать исходники через интерфейс гитхаба
+2) [NodeJS](https://nodejs.org/en)
+3) [pnpm](https://pnpm.io)
+4) [PostgreSQL](https://www.postgresql.org/)
 
 Для работы с проектом я использую [Visual Studio Code]([https://code.visualstudio.com])
 
